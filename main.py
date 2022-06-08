@@ -7,10 +7,10 @@ soup = BeautifulSoup(notice.text, "html.parser")
 # print(soup)
 
 pagination = soup.find("div", {"class":"_paging"})
-print(pagination)
+# print(pagination)
 
-pages = pagination.find_all('a')
+pages = pagination.find_all('li')
 # print(pages)
 
-# for page in pagination:
-#     print(page.find("li"))
+for page in pages:
+    print(page.find("a"))
