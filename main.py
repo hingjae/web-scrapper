@@ -9,8 +9,15 @@ soup = BeautifulSoup(notice.text, "html.parser")
 pagination = soup.find("div", {"class":"_paging"})
 # print(pagination)
 
-pages = pagination.find_all('li')
-# print(pages)
+links = pagination.find_all('li')
+# print(links)
 
-for page in pages:
-    print(page.find("a"))
+pages = []
+
+#page number 추출
+for link in links:
+    pages.append(int(link.string)) # 안에 있는 string만 가져옴 
+#span의 경우 pages.append(link.("span").string)
+print(pages[1:])
+
+max_page = pages[-1]
