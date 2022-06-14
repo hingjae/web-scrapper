@@ -16,7 +16,7 @@ def extract_notice_page():
     pages = []
     #page number 추출
     for link in links:
-        pages.append(int(link.string)) # tag를 제외하고 안에 있는 string만 가져옴 
+        pages.append(int(link.string)) # tag를 제외하고 안에 있는 string만 가져옴  # 수정 필요!!
     #span의 경우 pages.append(link.("span").string)
     # print(pages[1:])
     # max_page = pages[-1]
