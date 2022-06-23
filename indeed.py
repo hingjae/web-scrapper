@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 
 LIMIT = 50
 URL = "https://www.indeed.com/jobs?as_and=python&limit={LIMIT}"
+
 def get_last_page():
     result = requests.get(URL)
     soup = BeautifulSoup(result.text, "html.parser")
