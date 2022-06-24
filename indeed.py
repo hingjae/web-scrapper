@@ -37,7 +37,7 @@ def extract_jobs(last_page):
             jobs.append(job)
     return jobs
 
-def get_jobs():
+def get_jobs(word):
     last_page = get_last_page()
     jobs = extract_jobs(last_page)
     return jobs
