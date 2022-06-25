@@ -2,9 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 
 LIMIT = 50
-URL = "https://www.indeed.com/jobs?as_and=python&limit={LIMIT}"
 
-def get_last_page():
+def get_last_page(URL):
     result = requests.get(URL)
     soup = BeautifulSoup(result.text, "html.parser")
     pagination = soup.find("div", {"class":"pagination"})
@@ -25,7 +24,7 @@ def extract_job(html):
     job_id = html.find("h2",{"class":"jobTitle"}).find("a")["data-jk"]
     return {'title': title, 'company': company, 'location': location, 'link':f"https://www.indeed.com/viewjob?jk={job_id}"}
 
-def extract_jobs(last_page):
+def extract_jobs(last_page, URL):
     jobs = []
     for page in range(last_page):
         print(f"Scrapping page {page}")
@@ -38,6 +37,7 @@ def extract_jobs(last_page):
     return jobs
 
 def get_jobs(word):
-    last_page = get_last_page()
-    jobs = extract_jobs(last_page)
+    URL = f"https://www.indeed.com/jobs?as_and={word}&limit={LIMIT}"
+    last_page = get_last_page(URL)
+    jobs = extract_jobs(last_page,URL)
     return jobs

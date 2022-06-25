@@ -5,6 +5,8 @@ from flask import Flask, render_template, request, redirect
 
 app = Flask("SuperScrapper")
 
+db={}
+
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -14,10 +16,15 @@ def report():
     word = request.args.get('word')
     if word:
         word = word.lower()
-        # jobs = get_indeed_jobs(word)
+        fromDb = db.get(word)
+        if fromDb:
+            jobs = fromDb
+        else:
+            jobs = get_indeed_jobs(word)        
+            db[word] = jobs
     else:
         return redirect("/")
-    return render_template("report.html", searchingBy=word)
+    return render_template("report.html", searchingBy=word, resultsNumber=len(jobs))
 
 
 app.run(host="0.0.0.0")
