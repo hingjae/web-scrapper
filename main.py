@@ -1,7 +1,7 @@
 from indeed import get_jobs as get_indeed_jobs
 # from so import get_jobs as get_so_jobs
+from flask import Flask, render_template, request, redirect, send_file
 from save import save_to_file
-from flask import Flask, render_template, request, redirect
 
 app = Flask("SuperScrapper")
 
@@ -41,7 +41,8 @@ def export():
         jobs = db.get(word)
         if not jobs:
             raise Exception()
-        return f"Generate CSV for {word}"
+        save_to_file(jobs)
+        return send_file("jobs.csv")
     except:
         return redirect("/")
 
